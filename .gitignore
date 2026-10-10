@@ -16,4 +16,4 @@
 /.zed
 *.log
 .DS_Store
-Thumbs.db
+Thumbs.db/.env.local
