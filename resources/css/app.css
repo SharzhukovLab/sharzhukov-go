@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "../../vendor/sharzhukov/lab-ui/resources/css/lab.css";
+@import "../../vendor/sharzhukov/lab-ui/resources/css/prose.css";
+@import "../../vendor/sharzhukov/lab-ui/resources/css/brutal.css";
+
+@source "../../vendor/sharzhukov/lab-ui/resources/views";
+@source "../views";

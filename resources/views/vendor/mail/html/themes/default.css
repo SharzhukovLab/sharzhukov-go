@@ -1,0 +1,193 @@
+/* ==========================================================
+   Sharzhukov's Laboratory — Brutal Email Theme
+   ========================================================== */
+
+body, .body {
+    background-color: #f4f5f7;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #0a0a0a;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+}
+
+/* Outer wrapper */
+.wrapper {
+    background-color: #f4f5f7;
+    padding: 40px 16px;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Inner container — the white card */
+.inner-body {
+    background-color: #ffffff;
+    border: 2px solid #0a0a0a;
+    border-radius: 0;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Header */
+.header {
+    padding: 24px;
+    border-bottom: 2px solid #0a0a0a;
+    background-color: #ffffff;
+}
+.header a {
+    font-family: 'SF Mono', Monaco, Consolas, 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    text-decoration: none;
+}
+
+/* Body */
+.content-cell {
+    padding: 32px 28px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #0a0a0a;
+}
+.content-cell p {
+    margin: 0 0 16px;
+    color: #0a0a0a;
+    font-size: 15px;
+    line-height: 1.7;
+}
+.content-cell h1,
+.content-cell h2,
+.content-cell h3 {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #0a0a0a;
+    margin: 20px 0 12px;
+}
+.content-cell a {
+    color: #ea4a0f;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Buttons */
+.button {
+    border-radius: 0 !important;
+}
+.button-primary {
+    background-color: #ff5c1f !important;
+    border: 2px solid #0a0a0a !important;
+    border-radius: 0 !important;
+    color: #ffffff !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    padding: 14px 28px !important;
+    display: inline-block !important;
+}
+
+/* Footer */
+.footer {
+    padding: 24px;
+    border-top: 2px solid #0a0a0a;
+    background-color: #fafafb;
+    text-align: center;
+}
+.footer p {
+    color: #6b7280;
+    font-family: 'SF Mono', Monaco, Consolas, 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Sub-copy */
+.subcopy {
+    border-top: 2px dashed #d2d2d7;
+    margin-top: 32px;
+    padding-top: 20px;
+}
+.subcopy p {
+    color: #6b7280;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Tables (for panels) */
+.panel {
+    background-color: #fafafb;
+    border: 2px solid #0a0a0a;
+    border-radius: 0;
+    margin: 20px 0;
+    padding: 0;
+}
+.panel-content {
+    padding: 20px 24px;
+    color: #0a0a0a;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Quotes */
+blockquote {
+    border-left: 3px solid #ff5c1f;
+    margin: 16px 0;
+    padding: 8px 16px;
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* Divider */
+hr {
+    border: none;
+    border-top: 2px dashed #d2d2d7;
+    margin: 24px 0;
+}
+
+/* Promotions */
+.promotion {
+    padding: 24px;
+    background-color: #0a0a0a;
+    color: #ffffff;
+}
+.promotion h1,
+.promotion h2,
+.promotion h3,
+.promotion p {
+    color: #ffffff;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+table th,
+table td {
+    border: 2px solid #0a0a0a;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 14px;
+}
+
+/* Mobile tweaks */
+@media only screen and (max-width: 600px) {
+    .inner-body {
+        width: 100% !important;
+        border-width: 0 !important;
+    }
+    .content-cell {
+        padding: 24px 20px !important;
+    }
+    .header, .footer {
+        padding: 20px !important;
+    }
+}

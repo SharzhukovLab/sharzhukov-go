@@ -1,0 +1,207 @@
+/* ==========================================================
+   Filament 4 admin theme — Sharzhukov's Laboratory
+   Lab-ui tokens + Filament theme + custom orange primary
+   ========================================================== */
+
+/* 1. Filament's base theme (Tailwind v4 + Filament components) */
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+/* 2. Our design system — tokens, buttons, cards, etc. */
+@import '../../../../vendor/sharzhukov/lab-ui/resources/css/lab.css';
+
+/* 3. Scan our Filament code for class names */
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+@source '../../../../vendor/sharzhukov/lab-ui/resources/views/**/*';
+
+/* ==========================================================
+   Overrides — bring Filament into lab-ui aesthetic
+   ========================================================== */
+
+/* Force Inter across the panel */
+.fi-body,
+.fi-sidebar,
+.fi-topbar {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* Softer corners everywhere */
+.fi-sidebar-item,
+.fi-btn,
+.fi-input,
+.fi-ta-cell,
+.fi-section,
+.fi-wi-stats-overview-stat,
+.fi-fo-component-ctn {
+    border-radius: 10px;
+}
+
+/* Sidebar — closer to our card aesthetic */
+.fi-sidebar {
+    background: var(--lab-bg-elevated);
+    border-right: 1px solid var(--lab-border);
+}
+
+.fi-sidebar-item-active {
+    background: rgba(255, 92, 31, 0.1) !important;
+    color: #ff5c1f !important;
+}
+
+/* Topbar — subtle, minimal */
+.fi-topbar {
+    border-bottom: 1px solid var(--lab-border);
+}
+
+/* Primary buttons and accents get our orange */
+.fi-btn-color-primary {
+    --c-400: 255 92 31;
+    --c-500: 234 74 15;
+    --c-600: 194 65 12;
+}
+
+/* Links + focus rings */
+.fi-link,
+.fi-ac-link {
+    color: #ea4a0f;
+}
+.fi-link:hover,
+.fi-ac-link:hover {
+    color: #c2410c;
+}
+
+/* Widget cards — border-first like lab-ui */
+.fi-wi-stats-overview-stat,
+.fi-section {
+    border: 1px solid var(--lab-border);
+    box-shadow: none;
+    background: var(--lab-bg);
+}
+
+.fi-section-header {
+    border-bottom: 1px solid var(--lab-border);
+}
+
+/* ==========================================================
+   Global brutal overrides — фикс "разъезжающейся" вёрстки
+   ========================================================== */
+
+/* Убрать все дефолтные radius Filament */
+.fi-btn,
+.fi-input-wrp,
+.fi-input,
+.fi-section,
+.fi-wi-stats-overview-stat,
+.fi-ta-cell,
+.fi-dropdown-panel,
+.fi-modal-window,
+.fi-fo-component-ctn,
+.fi-badge,
+.fi-fo-rich-editor,
+.fi-fo-rich-editor-toolbar,
+.fi-sidebar-item,
+.fi-sidebar-item-button,
+.fi-ta-ctn,
+.fi-pagination,
+.fi-avatar,
+.fi-icon-btn {
+    border-radius: 0 !important;
+}
+
+/* Shadow на основные блоки */
+.fi-section,
+.fi-wi-stats-overview-stat,
+.fi-ta-ctn {
+    box-shadow: 4px 4px 0 var(--brutal-shadow) !important;
+    border: 2px solid var(--brutal-border) !important;
+}
+
+/* Кнопки с offset-shadow */
+.fi-btn {
+    box-shadow: 3px 3px 0 var(--brutal-shadow) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+    transition: all .12s ease !important;
+}
+.fi-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--brutal-shadow) !important;
+}
+.fi-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--brutal-shadow) !important;
+}
+
+/* Sidebar — чётче */
+.fi-sidebar {
+    border-right: 2px solid var(--brutal-border) !important;
+}
+.fi-sidebar-item-active {
+    background: var(--brutal-accent) !important;
+    color: #fff !important;
+}
+.fi-sidebar-item-active svg,
+.fi-sidebar-item-active .fi-sidebar-item-label {
+    color: #fff !important;
+}
+
+/* Stat cards — крупнее цифры */
+.fi-wi-stats-overview-stat-value {
+    font-family: var(--font-mono) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+}
+
+/* Topbar */
+.fi-topbar {
+    border-bottom: 2px solid var(--brutal-border) !important;
+    background: var(--lab-bg-elevated) !important;
+}
+
+/* Dropdown */
+.fi-dropdown-panel {
+    border: 2px solid var(--brutal-border) !important;
+    box-shadow: 6px 6px 0 var(--brutal-shadow) !important;
+}
+.fi-dropdown-list-item {
+    border-radius: 0 !important;
+    font-family: var(--font-mono) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+.fi-dropdown-list-item:hover {
+    background: var(--brutal-accent) !important;
+    color: #fff !important;
+}
+.fi-dropdown-list-item:hover svg { color: #fff !important; }
+
+/* Table */
+.fi-ta-header-cell {
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+}
+.fi-ta-row:hover {
+    background: rgba(255, 92, 31, 0.05) !important;
+}
+
+/* Inputs */
+.fi-input-wrp {
+    border-width: 2px !important;
+    border-color: var(--lab-border) !important;
+}
+.fi-input-wrp:focus-within {
+    border-color: var(--brutal-accent) !important;
+    box-shadow: 0 0 0 3px rgba(255, 92, 31, 0.15) !important;
+}
+
+/* Badges */
+.fi-badge {
+    font-family: var(--font-mono) !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+}
