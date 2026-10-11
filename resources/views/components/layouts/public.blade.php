@@ -14,11 +14,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/img/branding/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     @stack('meta')
-    <script>
+        <script>
         (function () {
             var t = localStorage.getItem('theme');
-            var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (t === 'dark' || (!t && dark)) document.documentElement.classList.add('dark');
+            if (t === 'dark') document.documentElement.classList.add('dark');
         })();
     </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
