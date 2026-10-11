@@ -417,4 +417,24 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     {
         return $this->isModerator();
     }
+
+    // ── Direct Messages ──
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, 'conversation_user')
+            ->withPivot('last_read_at')
+            ->orderByDesc('last_message_at');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function getUnreadMessagesCountAttribute(): int
+    {
+        return Conversation::whereHas('users', fn($q) => $q->where('users.id', $this->id))
+            ->get()
+            ->sum(fn($c) => $c->unreadCountFor($this->id));
+    }
 }
