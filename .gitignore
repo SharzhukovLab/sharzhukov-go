@@ -20,3 +20,7 @@ Thumbs.db/.env.local
 
 .env.backup-*
 .env.backup_*
+
+# local backups
+*.bak
+*.pre-*.bak
