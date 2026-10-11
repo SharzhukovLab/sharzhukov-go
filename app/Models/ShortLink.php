@@ -41,9 +41,4 @@ class ShortLink extends Model
     {
         return url('/s/' . $this->slug);
     }
-
-    public function getQrUrlAttribute(): string
-    {
-        return 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' . urlencode($this->short_url);
-    }
 }

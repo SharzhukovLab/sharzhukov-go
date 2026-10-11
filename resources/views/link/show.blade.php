@@ -20,9 +20,15 @@
                 </div>
             </div>
 
-            <div class="brutal-card" style="padding:24px;margin-top:20px;text-align:center;">
-                <p style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lab-fg-muted);margin:0 0 16px;">QR Code</p>
-                <img src="{{ $link->qr_url }}" alt="QR code" style="width:220px;height:220px;border:3px solid var(--brutal-border);margin:0 auto;display:block;">
+            <div class="brutal-card" style="padding:32px;margin-top:20px;">
+                <p style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lab-fg-muted);margin:0 0 20px;text-align:center;">QR Code</p>
+                <div style="display:flex;justify-content:center;">
+                    <x-lab::qr-download
+                        :url="$link->short_url"
+                        :filename="'qr-' . $link->slug"
+                        :size="220"
+                    />
+                </div>
             </div>
 
             <div style="text-align:center;margin-top:24px;">

@@ -22,8 +22,14 @@
                                         → {{ \Illuminate\Support\Str::limit($link->target_url, 60) }}
                                     </div>
                                 </div>
-                                <div style="display:flex;gap:8px;align-items:center;">
+                                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                                     <span class="brutal-badge">{{ $link->clicks_count }} clicks</span>
+                                    <button type="button"
+                                            class="lab-btn lab-btn--secondary"
+                                            style="height:34px;padding:0 12px;font-size:11px;"
+                                            onclick="openQrModal('{{ $link->short_url }}', 'qr-{{ $link->slug }}')">
+                                        QR
+                                    </button>
                                     <a href="{{ $link->short_url }}" target="_blank" class="lab-btn lab-btn--secondary" style="height:34px;padding:0 12px;font-size:11px;">OPEN</a>
                                 </div>
                             </div>
