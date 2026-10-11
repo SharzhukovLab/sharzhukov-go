@@ -43,6 +43,8 @@
     <meta name="twitter:description" content="{{ $description ?? 'Open-source collective building tools for developers.' }}">
 
     <link rel="canonical" href="{{ url()->current() }}">
+    <x-lab::analytics />
+
 </head>
 <body>
 
