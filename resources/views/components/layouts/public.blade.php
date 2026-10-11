@@ -16,9 +16,14 @@
     @stack('meta')
         <script>
         (function () {
-            var t = localStorage.getItem('theme');
-            if (t === 'dark') document.documentElement.classList.add('dark');
-        })();
+    var V = 'v2-2026-10-11';
+    if (localStorage.getItem('theme_version') !== V) {
+        localStorage.removeItem('theme');
+        localStorage.setItem('theme_version', V);
+    }
+    var t = localStorage.getItem('theme');
+    if (t === 'dark') document.documentElement.classList.add('dark');
+})();
     </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
