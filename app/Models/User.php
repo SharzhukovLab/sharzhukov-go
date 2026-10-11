@@ -233,64 +233,98 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     /**
      * Возможные типы модулей характеристик.
      */
-    public static function specTypes(): array
+        public static function specTypes(): array
     {
         return [
-            'desktop'  => ['label' => 'Desktop',  'icon' => '🖥'],
-            'laptop'   => ['label' => 'Laptop',   'icon' => '💻'],
-            'cpu'      => ['label' => 'CPU',      'icon' => '⚙️'],
-            'gpu'      => ['label' => 'GPU',      'icon' => '🎮'],
-            'ram'      => ['label' => 'RAM',      'icon' => '🧠'],
-            'storage'  => ['label' => 'Storage',  'icon' => '💾'],
-            'os'       => ['label' => 'OS',       'icon' => '🪟'],
-            'display'  => ['label' => 'Display',  'icon' => '📺'],
-            'keyboard' => ['label' => 'Keyboard', 'icon' => '⌨️'],
-            'mouse'    => ['label' => 'Mouse',    'icon' => '🖱'],
-            'custom'   => ['label' => 'Other',    'icon' => '✨'],
+            'cpu'         => ['label' => 'CPU'],
+            'gpu'         => ['label' => 'GPU'],
+            'ram'         => ['label' => 'RAM'],
+            'storage'     => ['label' => 'Storage'],
+            'motherboard' => ['label' => 'Motherboard'],
+            'psu'         => ['label' => 'Power Supply'],
+            'case'        => ['label' => 'Case'],
+            'cooling'     => ['label' => 'Cooling'],
+            'os'          => ['label' => 'OS'],
+            'display'     => ['label' => 'Display'],
+            'keyboard'    => ['label' => 'Keyboard'],
+            'mouse'       => ['label' => 'Mouse'],
+            'audio'       => ['label' => 'Audio'],
+            'network'     => ['label' => 'Network'],
+            'custom'      => ['label' => 'Other'],
         ];
+    }
+
+    public static function isNestedSpecs(array $specs): bool
+    {
+        if (empty($specs)) return true;
+        $first = reset($specs);
+        return is_array($first) && isset($first['components']) && is_array($first['components']);
     }
 
     /**
      * Список характеристик с человекочитаемыми метками и иконками.
      * Приоритет: team_specs_data (JSON), fallback — team_specs (string, split by ·).
      */
-    public function getTeamSpecsListAttribute(): array
+        public function getTeamSpecsListAttribute(): array
     {
         $types = self::specTypes();
-        $result = [];
+        $list  = [];
 
-        // Новая структура (JSON)
-        if (!empty($this->team_specs_data) && is_array($this->team_specs_data)) {
-            foreach ($this->team_specs_data as $spec) {
-                $type = $spec['type'] ?? 'custom';
-                $value = trim($spec['value'] ?? '');
-                if ($value === '') continue;
-
-                $result[] = [
-                    'type'  => $type,
-                    'label' => $types[$type]['label'] ?? 'Other',
-                    'icon'  => $types[$type]['icon'] ?? '✨',
-                    'value' => $value,
-                ];
+        // Nested: [{name, components:[{type,value}]}]
+        if (!empty($this->team_specs_data) && self::isNestedSpecs($this->team_specs_data)) {
+            foreach ($this->team_specs_data as $block) {
+                if (!is_array($block)) continue;
+                $name  = trim((string) ($block['name'] ?? ''));
+                $comps = is_array($block['components'] ?? null) ? $block['components'] : [];
+                $items = [];
+                foreach ($comps as $c) {
+                    if (!is_array($c)) continue;
+                    $type = (string) ($c['type'] ?? '');
+                    $val  = trim((string) ($c['value'] ?? ''));
+                    if ($type === '' || $val === '') continue;
+                    $items[] = [
+                        'type'  => $type,
+                        'label' => $types[$type]['label'] ?? ucfirst($type),
+                        'value' => $val,
+                    ];
+                }
+                if ($name !== '' || !empty($items)) {
+                    $list[] = ['name' => $name !== '' ? $name : 'Device', 'items' => $items];
+                }
             }
-            return $result;
+            return $list;
         }
 
-        // Fallback: старый формат "A · B · C"
+        // Legacy flat
+        if (!empty($this->team_specs_data) && is_array($this->team_specs_data)) {
+            $items = [];
+            foreach ($this->team_specs_data as $spec) {
+                if (!is_array($spec)) continue;
+                $type = (string) ($spec['type'] ?? 'custom');
+                $val  = trim((string) ($spec['value'] ?? ''));
+                if ($val === '') continue;
+                $items[] = [
+                    'type'  => $type,
+                    'label' => $types[$type]['label'] ?? ucfirst($type),
+                    'value' => $val,
+                ];
+            }
+            if (!empty($items)) $list[] = ['name' => 'Main PC', 'items' => $items];
+            return $list;
+        }
+
+        // Fallback: строка "A · B · C"
         if (!empty($this->team_specs)) {
             $parts = array_map('trim', explode('·', $this->team_specs));
+            $items = [];
             foreach ($parts as $part) {
                 if ($part === '') continue;
-                $result[] = [
-                    'type'  => 'custom',
-                    'label' => null,
-                    'icon'  => '✨',
-                    'value' => $part,
-                ];
+                $items[] = ['type' => 'custom', 'label' => 'Other', 'value' => $part];
             }
+            if (!empty($items)) $list[] = ['name' => 'Main PC', 'items' => $items];
         }
 
-        return $result;
+        return $list;
     }
 
     /**
