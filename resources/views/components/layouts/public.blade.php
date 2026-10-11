@@ -54,7 +54,7 @@
     :items="[
         ['label' => 'Create',   'url' => '/'],
         ['label' => 'My links', 'url' => '/my'],
-        ['label' => 'Main ↗',   'url' => 'https://sharzhukov.com', 'external' => true],
+        ['label' => 'Main',   'url' => 'https://sharzhukov.com', 'external' => true],
     ]"
 />
 
