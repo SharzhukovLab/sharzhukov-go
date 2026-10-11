@@ -25,23 +25,18 @@ class Conversation extends Model
         return $this->hasMany(Message::class)->orderBy('created_at');
     }
 
-    public function lastMessage(): HasMany
-    {
-        return $this->hasMany(Message::class)->latest()->limit(1);
-    }
-
     /**
-     * Найти или создать диалог между двумя пользователями.
+     * Найти существующий диалог между двумя пользователями или создать.
      */
     public static function findOrCreateBetween(int $userA, int $userB): self
     {
-        // Ищем существующий разговор где участвуют оба
-        $existing = static::whereHas('users', fn($q) => $q->where('users.id', $userA))
+        // Ищем разговор где участвуют оба юзера
+        $existing = static::query()
+            ->whereHas('users', fn($q) => $q->where('users.id', $userA))
             ->whereHas('users', fn($q) => $q->where('users.id', $userB))
-            ->where('conversation_user', '!=', null) // страховка
             ->withCount('users')
-            ->having('users_count', 2)
-            ->first();
+            ->get()
+            ->first(fn($c) => $c->users_count === 2);
 
         if ($existing) return $existing;
 
@@ -51,7 +46,7 @@ class Conversation extends Model
     }
 
     /**
-     * Считает непрочитанные для юзера в этом диалоге.
+     * Число непрочитанных для юзера.
      */
     public function unreadCountFor(int $userId): int
     {
@@ -65,7 +60,7 @@ class Conversation extends Model
     }
 
     /**
-     * Помечает всё прочитанным для юзера.
+     * Отметить всё прочитанным для юзера.
      */
     public function markReadFor(int $userId): void
     {
